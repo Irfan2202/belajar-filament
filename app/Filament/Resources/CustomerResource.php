@@ -19,16 +19,31 @@ class CustomerResource extends Resource
 {
     protected static ?string $model = Customer::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-user';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                TextInput::make('customer_code'),
-                TextInput::make('customer_name'),
-                TextInput::make('customer_address'),
-                TextInput::make('customer_phone'),
+                TextInput::make('customer_code')
+                    ->label('code')
+                    ->placeholder('enter customer code')
+                    ->required(),
+
+                TextInput::make('customer_name')
+                    ->label('name')
+                    ->placeholder('enter customer name')
+                    ->required(),
+
+                TextInput::make('customer_address')
+                    ->label('address')
+                    ->placeholder('enter customer address')
+                    ->required(),
+
+                TextInput::make('customer_phone')
+                    ->label('phone number')
+                    ->placeholder('enter customer phone')
+                    ->required(),
             ]);
     }
 
@@ -36,16 +51,24 @@ class CustomerResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('customer_code'),
-                TextColumn::make('customer_name'),
-                TextColumn::make('customer_address'),
-                TextColumn::make('customer_phone'),
+                TextColumn::make('customer_code')
+                    ->label('code'),
+                TextColumn::make('customer_name')
+                    ->label('name')
+                    ->searchable(),
+                TextColumn::make('customer_address')
+                    ->label('address'),
+                TextColumn::make('customer_phone')
+                    ->label('phone number')
+                    ->copyable(),
             ])
             ->filters([
                 //
             ])
             ->actions([
+                Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
