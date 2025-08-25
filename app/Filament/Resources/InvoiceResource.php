@@ -22,7 +22,12 @@ class InvoiceResource extends Resource
 {
     protected static ?string $model = Invoice::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-document-text';
+    protected static ?string $navigationLabel = 'Invoices';
+    protected static ?string $modelLabel = 'Invoice';
+    protected static ?string $pluralModelLabel = 'Invoices';
+    protected static ?string $navigationGroup = 'Finance Management';
+
 
     public static function form(Form $form): Form
     {
@@ -102,7 +107,9 @@ class InvoiceResource extends Resource
                 Tables\Filters\TrashedFilter::make(),
             ])
             ->actions([
+                Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
